@@ -1,0 +1,17 @@
+$ docker run --privileged --name dind -d docker:stable-dind
+
+$ docker exec -it dind /bin/bash
+
+$ docker run -ti --rm -v /var/run/docker.sock:/var/run/docker.sock docker /bin/bash
+
+#How to run docker in docker in Jenkins?
+volumes:
+
+${HOST_DOCKER}:/var/run/docker.sock
+${HOST_JENKINS_DATA}:/var/jenkins_home
+#How to run docker in docker in GitLab?
+
+docker run -d --name gitlab-runner --restart always
+-v /srv/gitlab-runner/config:/etc/gitlab-runner
+-v /var/run/docker.sock:/var/run/docker.sock
+gitlab/gitlab-runner:latest
